@@ -1,14 +1,22 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./assets/components/home/Home.jsx";
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
+import RootLayout from "./assets/components/layout/RootLayout.jsx";
+import CarListing from "./assets/components/car/CarListing.jsx";
 
 function App() {
-
+    const router = createBrowserRouter(createRoutesFromElements(
+        <Route path="/" element={<RootLayout/>}>
+         <Route index element={<Home/>}/>
+            <Route path="/cars" element={<CarListing/>}/>
+        </Route>
+    ));
 
   return (
-    <>
-      <Home/>
-    </>
+    <main className=''>
+      <RouterProvider router={router}/>
+    </main>
   )
 }
 
