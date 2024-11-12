@@ -17,18 +17,24 @@ export default function CarCard({car}) {
                                 )}
                             </Link>
                         </div>
-                        <div>
-                            <Card.Title className="title">{car.name}</Card.Title>
-                            <Card.Title>{car.brand}</Card.Title>
+                        <div className='flex-grow-1 ml-3 px-5'>
+                            <Card.Title className="title">
+                                {car.name}
+                            </Card.Title>
+                            <Card.Title>
+                                <h6>{car.brand}</h6>
+                            </Card.Title>
                             <Card.Title className="review rating-stars">
                                 Review: Some stars
                             </Card.Title>
-                            <Link to={""}>Book car</Link>
+                            <Link to={""}>View car</Link>
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
                         <div>
-                            <Link to={''} className="link-2">See what people think about</Link>
+                            <Link to={''} className="link-2">
+                                See what people think about
+                            </Link>
                             <span className="margin-left-space">{car.name}</span>
                         </div>
                     </Accordion.Body>
