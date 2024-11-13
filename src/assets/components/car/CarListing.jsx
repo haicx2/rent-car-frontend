@@ -8,17 +8,16 @@ import {getCars} from "./CarService.js";
 import UseMessageAlerts from "../hook/UserMessageAlert.js"; // Adjust import path as needed
 
 const CarListing = () => {
-    const [cars, setCars] = useState([]); // filtered cars
-    const [allCars, setAllCars] = useState([]); // full list of cars
+    const [cars, setCars] = useState([]);
+    const [allCars, setAllCars] = useState([]);
     const { errorMessage, setErrorMessage, showErrorAlert, setShowErrorAlert } =
         UseMessageAlerts(); // error handling hook
 
-    // Fetch cars when the component mounts
     useEffect(() => {
         getCars()
             .then((data) => {
-                setCars(data.data); // Set the filtered cars (initially the full list)
-                setAllCars(data.data); // Set the full list of cars
+                setCars(data.data);
+                setAllCars(data.data);
             })
             .catch((error) => {
                 setErrorMessage(error.response.data.message || error.message);

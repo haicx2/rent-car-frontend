@@ -27,7 +27,7 @@ export default function CarCard({car}) {
                             <Card.Title className="review rating-stars">
                                 Review: Some stars
                             </Card.Title>
-                            <Link to={""}>View car</Link>
+                            <Link to={`/bookCar/${car.id}`}>View car</Link>
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
