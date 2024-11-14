@@ -7,12 +7,13 @@ import DatePicker from "react-datepicker";
 import ProcessSpinner from "../common/ProcessSpinner.jsx";
 import {bookingService} from "./BookingService.js";
 import {format} from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Booking() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [formData, setFormData] = useState({
-        startDate: "",
-        endDate: "",
+        startDate: null,
+        endDate: null,
         paymentMethod: "",
     });
 
@@ -88,7 +89,7 @@ export default function Booking() {
                                 Car Booking Form
                             </Card.Header>
                             <Card.Body>
-                                <Form.Group className="mb-4">
+                                <Form.Group as={Row} className="mb-4">
                                     <Form.Label >Booking Start Date</Form.Label>
                                     <DatePicker
                                         selected={formData.startDate}
@@ -98,7 +99,7 @@ export default function Booking() {
                                         minDate={new Date()}
                                         placeholderText="Choose a start date"
                                         required
-                                     showMonthYearDropdown/>
+                                      showMonthYearDropdown/>
                                 </Form.Group>
 
                                 <Form.Group className="mb-4">

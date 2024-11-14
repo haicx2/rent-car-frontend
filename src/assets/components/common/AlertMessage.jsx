@@ -6,5 +6,5 @@ export default function AlertMessage({type, message}) {
         <Alert variant={type} dismissible>
             {message}
         </Alert>
-    )
+    );
 }
