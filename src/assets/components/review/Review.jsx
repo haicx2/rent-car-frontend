@@ -1,69 +1,25 @@
-import {useState} from "react";
-import UserMessageAlert from "../hook/UserMessageAlert.js";
-import {Form} from "react-bootstrap";
+import RatingStars from "../rating/RatingStars.jsx";
 
-export default function Review({carId, onReviewSubmit}) {
-        const [hover, setHover] = useState(null);
-        const [reviewInfo, setReviewInfo] = useState({
-            rating: null,
-            comment: null,
-        });
-        const {
-            successMessage,
-            setSuccessMessage,
-            errorMessage,
-            setErrorMessage,
-            showSuccessAlert,
-            setShowSuccessAlert,
-            showErrorAlert,
-            setShowErrorAlert
-        } = UserMessageAlert();
-
-        const handleInputChange = (e) => {
-            const {name, value} = e.target.value;
-            setReviewInfo((prevState) => ({
-                ...prevState,
-                [name]: value,
-            }));
-        }
-        const handleSubmit = async (e) => {
-            e.preventDefault();
-
-            try {
-                const response = await addReview(carId, customerId, reviewInfo.review);
-                setSuccessMessage(response.data.message);
-                setShowSuccessAlert(true);
-                if (onReviewSubmit) {
-                    onReviewSubmit();
-                }
-            } catch (error) {
-                setErrorMessage(error.response.data.message);
-                setShowErrorAlert(true);
-
-            }
-        }
+export default function Review({review}) {
+    const displayName = review.customerName;
     return (
-        <>
-            <Form>
-                <h3>Rate this car:</h3>
+        <div className='mb-4'>
+            <div className='d-flex align-item-center me-5'>
                 <div>
-                    {[...Array(5)].map((_, index) => {
-                        const ratingValue = index + 1;
-                        return (
-                            <Form.Label key={index}>
-                                <Form.Check
-                                    type="radio"
-                                    name="rating"
-                                    value={ratingValue}
-                                    onChange={handleInputChange}
-                                    checked={reviewInfo.rating === ratingValue}
-                                />
-                            </Form.Label>
-                        )
-                    })
-                    }
+                    <div>
+                        <h5 className='title ms-3'>
+                            <RatingStars rating={review.rating}/>
+                        </h5>
+                    </div>
+                    <div className='mt-4'>
+                        <p className='review-text ms-4'>{review.feedback}</p>
+                    </div>
+                    <div>
+                        <p className="ms-4">{displayName}</p>
+                    </div>
                 </div>
-            </Form>
-        </>
+            </div>
+            <hr/>
+        </div>
     )
 }

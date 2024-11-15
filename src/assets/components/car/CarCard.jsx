@@ -32,9 +32,9 @@ export default function CarCard({car}) {
                     </Accordion.Header>
                     <Accordion.Body>
                         <div>
-                            <Link to={''} className="link-2">
+                            <Link to={`/car/carDetails/${car.id}`} className="link-2">
                                 See what people think about
-                            </Link>
+                            </Link>{""}
                             <span className="margin-left-space">{car.name}</span>
                         </div>
                     </Accordion.Body>
