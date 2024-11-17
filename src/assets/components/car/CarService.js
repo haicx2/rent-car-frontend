@@ -11,20 +11,6 @@ export async function getCars() {
     }
 }
 
-export async function getCarsByQuery(params = {}) {
-    try {
-        const queryString = new URLSearchParams(params).toString();
-        const url = `/car/search${queryString ? `?${queryString}` : ""}`;
-
-        const result = await api.get(url);
-        console.log("Search result", result);
-        return result.data;
-    } catch (error) {
-        console.error("Error fetching cars by query:", error);
-        throw error;
-    }
-}
-
 export async function getCarById(carId) {
     try {
         const result = await api.get(`/car/get/${carId}`);
@@ -34,3 +20,21 @@ export async function getCarById(carId) {
         throw error;
     }
 }
+
+export async function updateCarPhoto(carId, photoData) {
+    try {
+        const response = await api.put(
+            `/update/image/${carId}`,
+            photoData,
+            {
+                headers: {
+                    "Content-Type": "application/octet-stream",
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+

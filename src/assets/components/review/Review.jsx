@@ -12,7 +12,7 @@ export default function Review({review}) {
                         </h5>
                     </div>
                     <div className='mt-4'>
-                        <p className='review-text ms-4'>{review.feedback}</p>
+                        <p className='review-text ms-4'>{review.comment}</p>
                     </div>
                     <div>
                         <p className="ms-4">{displayName}</p>

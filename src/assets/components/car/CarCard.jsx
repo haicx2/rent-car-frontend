@@ -1,6 +1,7 @@
 import {Accordion, Card, Col} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import placeholder from "../../images/placeholder.webp";
+import CarImage from "./CarImage.jsx";
 
 export default function CarCard({car}) {
     return (
@@ -10,11 +11,7 @@ export default function CarCard({car}) {
                     <Accordion.Header>
                         <div className="d-flex align-items-center">
                             <Link to={''}>
-                                {car.image ? (
-                                    <Card.Img src={`data:image/png;base64, ${car.image}`} className="user-image"
-                                              alt="Car Image"/>) : (
-                                    <Card.Img src={placeholder}/>
-                                )}
+                                <CarImage carImage={car.image} />
                             </Link>
                         </div>
                         <div className='flex-grow-1 ml-3 px-5'>

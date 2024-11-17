@@ -9,6 +9,7 @@ import Paginator from "../common/Paginator.jsx";
 import Review from "../review/Review.jsx";
 import Rating from "../rating/Rating.jsx";
 import RatingStars from "../rating/RatingStars.jsx";
+import CarImage from "./CarImage.jsx";
 
 export default function Car() {
     const [car, setCar] = useState(null);
@@ -59,6 +60,9 @@ export default function Car() {
                 <Card className='review-card mt-2'>
                     <Row>
                         <Col>
+                            <CarImage carImage={car.image} altText={`${car.name}'s photo`} />
+                        </Col>
+                        <Col>
                             <Link to={"/cars"}>
                                 <BsFillArrowRightSquareFill/> back to Car List
                             </Link>
@@ -83,6 +87,7 @@ export default function Car() {
                                 {car.totalCustomers === 1 ? "person" : "people"}){" "}
                             </Card.Text>
                         )}
+                        <Link to={`/car/upload-image/${car.id}`}>Change car image</Link>
                         <Link
                             to={`/bookCar/${car.id}`}
                             className='link'>

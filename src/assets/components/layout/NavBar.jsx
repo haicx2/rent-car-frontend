@@ -20,11 +20,11 @@ export default function NavBar() {
                     </Nav>
                     <Nav>
                         <NavDropdown title='Account' id='basic-nav-dropdown'>
-                            <NavDropdown.Item to={"/user-dashboard"} as={Link}>
+                            <NavDropdown.Item to={"/register-user"} as={Link}>
                                 Register
                             </NavDropdown.Item>
                             <NavDropdown.Divider/>
-                            <NavDropdown.Item to={"/user-dashboard"} as={Link}>
+                            <NavDropdown.Item to={"/login"} as={Link}>
                                 Login
                             </NavDropdown.Item>
                             <NavDropdown.Divider/>
