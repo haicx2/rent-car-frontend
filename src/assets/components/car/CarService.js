@@ -21,17 +21,16 @@ export async function getCarById(carId) {
     }
 }
 
-export async function updateCarPhoto(carId, photoData) {
+export async function updateCarPhoto(carId, file) {
+    const formData = new FormData();
+    formData.append("file", file); // Key matches @RequestParam("file")
+
     try {
-        const response = await api.put(
-            `/update/image/${carId}`,
-            photoData,
-            {
-                headers: {
-                    "Content-Type": "application/octet-stream",
-                },
-            }
-        );
+        const response = await api.put(`/car/update/image/${carId}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
         return response.data;
     } catch (error) {
         throw error;
