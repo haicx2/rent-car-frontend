@@ -1,12 +1,16 @@
-import {useState} from "react";
-import {Button, Card, Col, Container, ListGroup, Row} from "react-bootstrap";
+import { useState } from "react";
+import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal.jsx";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import ChangePasswordModal from "../modals/ChangePasswordModal.jsx";
+import Paginator from "./Paginator"; // Adjust import path as needed
 
-export default function UserProfile({user, handleDeleteAccount}) {
+export default function UserProfile({ user, handleDeleteAccount }) {
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5); // Set number of cars per page
 
     const handleShowChangePasswordModal = () => {
         setShowChangePasswordModal(true);
@@ -31,6 +35,14 @@ export default function UserProfile({user, handleDeleteAccount}) {
             console.error(error.message);
         }
     };
+
+    // Pagination logic
+    const totalCars = user.carDtos?.length || 0;
+    const indexOfLastCar = currentPage * itemsPerPage;
+    const indexOfFirstCar = indexOfLastCar - itemsPerPage;
+    const currentCars = user.carDtos?.slice(indexOfFirstCar, indexOfLastCar) || [];
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <Container>
@@ -110,8 +122,8 @@ export default function UserProfile({user, handleDeleteAccount}) {
                                 <Col md={2}>Car(s):</Col>
                                 <Col md={10}>
                                     <ListGroup variant="flush">
-                                        {user.carDtos && user.carDtos.length > 0 ? (
-                                            user.carDtos.map((car, index) => (
+                                        {currentCars.length > 0 ? (
+                                            currentCars.map((car, index) => (
                                                 <ListGroup.Item key={index}>
                                                     <strong>Name:</strong> {car.name} <br />
                                                     <strong>Brand:</strong> {car.brand}
@@ -121,6 +133,14 @@ export default function UserProfile({user, handleDeleteAccount}) {
                                             <Card.Text>No cars registered.</Card.Text>
                                         )}
                                     </ListGroup>
+                                    <div className="mt-3">
+                                        <Paginator
+                                            itemsPerPage={itemsPerPage}
+                                            totalItems={totalCars}
+                                            currentPage={currentPage}
+                                            paginate={paginate}
+                                        />
+                                    </div>
                                 </Col>
                             </Card.Body>
                         </Card>
