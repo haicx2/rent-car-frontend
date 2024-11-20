@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<RootLayout/>}>
          <Route index element={<Home/>}/>
             <Route path="/cars" element={<CarListing/>}/>
-            <Route path="/bookCar/:carId" element={<Booking/>}/>
+            <Route path="/bookingService/:carId" element={<Booking/>}/>
             <Route path="/car/carDetails/:carId" element={<Car/>}/>
             <Route path='/register-user' element={<UserRegistration/>} />
             <Route path='/login' element={<Login />} />

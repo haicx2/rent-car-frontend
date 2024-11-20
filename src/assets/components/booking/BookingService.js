@@ -17,5 +17,62 @@ export async function bookingService(carId, customerId, bookingRequest) {
         console.error("Booking service failed:", error);
         throw error;
     }
-
 }
+
+export async function updateBooking(bookingId, bookingData){
+    try {
+        const response = await api.put(
+            `/booking/update/${bookingId}`,
+            bookingData
+        );
+        console.log("Two :", response.data.message);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export async function cancelAppointment(bookingId) {
+    try {
+        const response = await api.put(
+            `/booking/${bookingId}/cancel`
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+export async function approveBooking(bookingId) {
+    try {
+        const response = await api.put(
+            `/booking/${bookingId}/approve`
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function declineBooking(bookingId){
+    try {
+        const response = await api.put(
+            `/booking/${appointmentId}/decline`
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getBookingById = async (bookingId) => {
+    try {
+        const result = await api.get(
+            `/booking/get/${bookingId}`
+        );
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+};
