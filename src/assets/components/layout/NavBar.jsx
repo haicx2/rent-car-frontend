@@ -1,7 +1,8 @@
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 export default function NavBar() {
+    const { userId } = useParams();
     return (
         <Navbar expand='lg' sticky='top' className='nav-bg'>
             <Container>
@@ -28,7 +29,7 @@ export default function NavBar() {
                                 Login
                             </NavDropdown.Item>
                             <NavDropdown.Divider/>
-                            <NavDropdown.Item to={"/user-dashboard"} as={Link}>
+                            <NavDropdown.Item to={`/user-dashboard/${userId}/my-dashboard`} as={Link}>
                                 My Dashboard
                             </NavDropdown.Item>
                             <NavDropdown.Divider/>

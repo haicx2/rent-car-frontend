@@ -1,5 +1,5 @@
 import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
-import {formatAppointmentStatus} from "../utils/utils.js";
+import {formatBookingStatus} from "../utils/utils.js";
 
 export default function BookingFilter({
                                           statuses = [],
@@ -21,7 +21,7 @@ export default function BookingFilter({
                                     <option value='all'>all</option>
                                     {statuses.map((status, index) => (
                                         <option key={index} value={status}>
-                                            {formatAppointmentStatus(status)}
+                                            {formatBookingStatus(status)}
                                         </option>
                                     ))}
                                 </Form.Select>

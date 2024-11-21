@@ -1,6 +1,14 @@
 import {useEffect, useState} from "react";
 import UseMessageAlerts from "../hook/UserMessageAlert.js";
-import {getUser} from "./UserService.js";
+import {deleteUser, getUser} from "./UserService.js";
+import {formatBookingStatus} from "../utils/utils.js";
+import {Card, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
+import AlertMessage from "../common/AlertMessage.jsx";
+import UserProfile from "./UserProfile.jsx";
+import Review from "../review/Review.jsx";
+import NoDataAvailable from "../common/NoDataAvailable.jsx";
+import UserBooking from "../booking/UserBooking.jsx";
+import CustomPieChart from "../chart/CustomPieChart.jsx";
 
 export default function UserDashBoard() {
     const [user, setUser] = useState(null);
@@ -23,7 +31,7 @@ export default function UserDashBoard() {
     } = UseMessageAlerts();
 
     // const { userId } = useParams();
-    const userId = 4;
+    const userId = 3;
 
     useEffect(() => {
         const getUserById = async () => {
@@ -43,8 +51,8 @@ export default function UserDashBoard() {
 
     useEffect(() => {
         if (user && user.appointments) {
-            const statusCounts = user.appointments.reduce((acc, appointment) => {
-                const formattedStatus = formatAppointmentStatus(appointment.status);
+            const statusCounts = user.bookingDtos.reduce((acc, booking) => {
+                const formattedStatus = formatBookingStatus(booking.status);
                 if (!acc[formattedStatus]) {
                     acc[formattedStatus] = {
                         name: formattedStatus,
@@ -57,25 +65,12 @@ export default function UserDashBoard() {
             }, {});
 
             const transformedData = Object.values(statusCounts);
-            setAppointmentData(transformedData);
-            setAppointments(user.appointments);
+            setBookingData(transformedData);
+            setBookingData(user.bookingDtos);
             console.log("Here is the transform data: ", transformedData);
         }
     }, [user]);
 
-
-    const handleRemovePhoto = async () => {
-        try {
-            const result = await deleteUserPhoto(user.photoId, userId);
-            setSuccessMessage(result.message);
-            window.location.reload();
-            setShowSuccessAlert(true);
-        } catch (error) {
-            setErrorMessage(error.message);
-            setShowErrorAlert(true);
-            console.error(error.message);
-        }
-    };
 
     const handleDeleteAccount = async () => {
         try {
@@ -112,7 +107,6 @@ export default function UserDashBoard() {
                     {user && (
                         <UserProfile
                             user={user}
-                            handleRemovePhoto={handleRemovePhoto}
                             handleDeleteAccount={handleDeleteAccount}
                         />
                     )}
@@ -120,8 +114,8 @@ export default function UserDashBoard() {
                 <Tab eventKey='status' title={<h3>Appointments</h3>}>
                     <Row>
                         <Col>
-                            {appointmentData && appointmentData.length > 0 ? (
-                                <CustomPieChart data={appointmentData} />
+                            {bookingData && bookingData.length > 0 ? (
+                                <CustomPieChart data={bookingData} />
                             ) : (
                                 <NoDataAvailable dataType={"appointment data"} />
                             )}
@@ -133,27 +127,27 @@ export default function UserDashBoard() {
                     <Row>
                         <Col>
                             {user && (
-                                <React.Fragment>
-                                    {appointments && appointments.length > 0 ? (
-                                        <UserAppointments user={user} appointments={appointments} />
+                                <>
+                                    {bookings && bookings.length > 0 ? (
+                                        <UserBooking user={user} bookings={bookings} />
                                     ) : (
-                                        <NoDataAvailable dataType={"appointment data"} />
+                                        <NoDataAvailable dataType={"booking data"} />
                                     )}
-                                </React.Fragment>
+                                </>
                             )}
                         </Col>
                     </Row>
                 </Tab>
 
-                <Tab eventKey='reviews' title={<h3>Reviws</h3>}>
+                <Tab eventKey='reviews' title={<h3>Reviews</h3>}>
                     <Container className='d-flex justify-content-center align-items-center'>
                         <Card className='mt-5 mb-4 review-card'>
                             <h4 className='text-center mb-2'>Your Reviews</h4>
                             <hr />
                             <Row>
                                 <Col>
-                                    {user && user.reviews && user.reviews.length > 0 ? (
-                                        user.reviews.map((review, index) => (
+                                    {user && user.reviewDtos && user.reviewDtos.length > 0 ? (
+                                        user.reviewDtos.map((review, index) => (
                                             <Review key={index} review={review} />
                                         ))
                                     ) : (

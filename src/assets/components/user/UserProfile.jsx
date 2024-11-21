@@ -3,7 +3,8 @@ import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal.jsx";
 import { Link } from "react-router-dom";
 import ChangePasswordModal from "../modals/ChangePasswordModal.jsx";
-import Paginator from "./Paginator"; // Adjust import path as needed
+import Paginator from "../common/Paginator.jsx";
+
 
 export default function UserProfile({ user, handleDeleteAccount }) {
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
