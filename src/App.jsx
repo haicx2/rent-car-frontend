@@ -9,6 +9,7 @@ import Car from "./assets/components/car/Car.jsx";
 import UserRegistration from "./assets/components/user/UserRegistration.jsx";
 import Login from "./assets/components/auth/Login.jsx";
 import CarUploadImage from "./assets/components/car/CarUploadImage.jsx";
+import UserDashBoard from "./assets/components/user/UserDashBoard.jsx";
 
 function App() {
     const router = createBrowserRouter(createRoutesFromElements(
@@ -20,6 +21,7 @@ function App() {
             <Route path='/register-user' element={<UserRegistration/>} />
             <Route path='/login' element={<Login />} />
             <Route path='/car/upload-image/:carId' element={<CarUploadImage/>} />
+            <Route path='/user-dashboard/:userId/my-dashboard' element={<UserDashBoard/>} />
         </Route>
     ));
 

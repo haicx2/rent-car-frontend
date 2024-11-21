@@ -32,7 +32,7 @@ export async function updateBooking(bookingId, bookingData){
     }
 };
 
-export async function cancelAppointment(bookingId) {
+export async function cancelBooking(bookingId) {
     try {
         const response = await api.put(
             `/booking/${bookingId}/cancel`
@@ -59,6 +59,17 @@ export async function declineBooking(bookingId){
     try {
         const response = await api.put(
             `/booking/${appointmentId}/decline`
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function completeBooking(bookingId) {
+    try {
+        const response = await api.put(
+            `/booking/${bookingId}/complete`
         );
         return response.data;
     } catch (error) {

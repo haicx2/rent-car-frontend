@@ -20,3 +20,7 @@ export const useAlertWithTimeout = (
     return [isVisible, setIsVisible];
 };
 
+export const formatBookingStatus = (status) =>{
+    return status.toLowerCase().replace(/_/g, "-");
+}
+
