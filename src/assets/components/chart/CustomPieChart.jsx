@@ -19,10 +19,14 @@ export default function CustomPieChart({
                     <Pie
                         dataKey={dataKey}
                         data={data}
-                        label={({ [nameKey]: name }) => name}>
+                        label={({ [nameKey]: name }) => name}
+                    >
                         {data &&
                             data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={colors[entry.name]} />
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={colors[entry.name] || colors.default} // Fallback to default color
+                                />
                             ))}
                     </Pie>
                     <Tooltip />

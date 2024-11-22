@@ -50,7 +50,7 @@ export default function UserDashBoard() {
     }, [userId]);
 
     useEffect(() => {
-        if (user && user.appointments) {
+        if (user && user.bookingDtos) {
             const statusCounts = user.bookingDtos.reduce((acc, booking) => {
                 const formattedStatus = formatBookingStatus(booking.status);
                 if (!acc[formattedStatus]) {
@@ -66,8 +66,7 @@ export default function UserDashBoard() {
 
             const transformedData = Object.values(statusCounts);
             setBookingData(transformedData);
-            setBookingData(user.bookingDtos);
-            console.log("Here is the transform data: ", transformedData);
+            console.log("Transformed booking data:", transformedData);
         }
     }, [user]);
 
@@ -111,19 +110,19 @@ export default function UserDashBoard() {
                         />
                     )}
                 </Tab>
-                <Tab eventKey='status' title={<h3>Appointments</h3>}>
+                <Tab eventKey='status' title={<h3>Bookings</h3>}>
                     <Row>
                         <Col>
                             {bookingData && bookingData.length > 0 ? (
                                 <CustomPieChart data={bookingData} />
                             ) : (
-                                <NoDataAvailable dataType={"appointment data"} />
+                                <NoDataAvailable dataType={"booking data"} />
                             )}
                         </Col>
                     </Row>
                 </Tab>
 
-                <Tab eventKey='appointments' title={<h3>Appointment Details</h3>}>
+                <Tab eventKey='bookings' title={<h3>Booking Details</h3>}>
                     <Row>
                         <Col>
                             {user && (

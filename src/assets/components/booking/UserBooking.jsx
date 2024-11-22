@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import useColorMapping from "../hook/ColorMapping.js";
 import UseMessageAlerts from "../hook/UserMessageAlert.js";
-import { useParams, Link } from "react-router-dom";
-import { approveBooking, declineBooking, getBookingById, updateBooking, cancelBooking, completeBooking } from "./BookingService.js";
+import { approveBooking, declineBooking, getBookingById, cancelBooking, completeBooking } from "./BookingService.js";
 import { Accordion, Container, Row, Col } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage.jsx";
 import BookingFilter from "./BookingFilter.jsx";
@@ -28,8 +27,6 @@ export default function UserBooking({ user, bookings: initialBookings }) {
         showErrorAlert,
         setShowErrorAlert,
     } = UseMessageAlerts();
-
-    const { carId } = useParams();
 
     const fetchBooking = async (bookingId) => {
         try {

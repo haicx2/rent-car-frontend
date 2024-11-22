@@ -9,8 +9,8 @@ const useColorMapping = () => {
             "on-going": rootStyle.getPropertyValue("--color-on-going"),
             "up-coming": rootStyle.getPropertyValue("--color-up-coming"),
             completed: rootStyle.getPropertyValue("--color-completed"),
-            "not-approved": rootStyle.getPropertyValue("--color-not-approved"),
-            cancelled: rootStyle.getPropertyValue("--color-cancelled"),
+            rejected: rootStyle.getPropertyValue("--color-not-approved"),
+            canceled: rootStyle.getPropertyValue("--color-cancelled"),
             "waiting-for-approval": rootStyle.getPropertyValue(
                 "--color-waiting-for-approval"
             ),
