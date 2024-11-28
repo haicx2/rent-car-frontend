@@ -21,7 +21,7 @@ export default function Rating({carId, onReviewSubmit}) {
         setShowErrorAlert,
     } = UseMessageAlerts();
 
-    const customerId = 3;
+    const customerId = localStorage.getItem("userId");
 
     // const{veterinarianId} = useParams()
 

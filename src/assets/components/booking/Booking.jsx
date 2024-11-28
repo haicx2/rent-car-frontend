@@ -29,7 +29,7 @@ export default function Booking() {
     } = UseMessageAlerts();
 
     const {carId} = useParams();
-    const customerId = 3;
+    const customerId = localStorage.getItem("userId");
 
     const handleDateChange = (field, date) => {
         setFormData((prevState) => ({

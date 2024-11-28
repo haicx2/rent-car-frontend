@@ -10,6 +10,10 @@ import UserRegistration from "./assets/components/user/UserRegistration.jsx";
 import Login from "./assets/components/auth/Login.jsx";
 import CarUploadImage from "./assets/components/car/CarUploadImage.jsx";
 import UserDashBoard from "./assets/components/user/UserDashBoard.jsx";
+import ResetPassword from "./assets/components/auth/ResetPassword.js";
+import PasswordResetRequest from "./assets/components/auth/PasswordResetRequest.jsx";
+import EmailVerification from "./assets/components/auth/EmailVerification.jsx";
+import UserUpdate from "./assets/components/user/UserUpdate.jsx";
 
 function App() {
     const router = createBrowserRouter(createRoutesFromElements(
@@ -22,6 +26,14 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/car/upload-image/:carId' element={<CarUploadImage/>} />
             <Route path='/user-dashboard/:userId/my-dashboard' element={<UserDashBoard/>} />
+            <Route
+                path='/password-rest-request'
+                element={<PasswordResetRequest />}
+            />
+
+            <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/email-verification' element={<EmailVerification />} />
+            <Route path='/update-user/:userId/update' element={<UserUpdate />} />
         </Route>
     ));
 

@@ -110,6 +110,13 @@ export default function UserProfile({ user, handleDeleteAccount }) {
                         </Card.Body>
 
                         <Card.Body className="d-flex align-items-center">
+                            <Col md={4}>Wallet :</Col>
+                            <Col md={8}>
+                                <Card.Text>{user.wallet}</Card.Text>
+                            </Col>
+                        </Card.Body>
+
+                        <Card.Body className="d-flex align-items-center">
                             <Col md={4}>User Role :</Col>
                             <Col md={8}>
                                 <Card.Text>{user.role}</Card.Text>
