@@ -10,7 +10,7 @@ import UserRegistration from "./assets/components/user/UserRegistration.jsx";
 import Login from "./assets/components/auth/Login.jsx";
 import CarUploadImage from "./assets/components/car/CarUploadImage.jsx";
 import UserDashBoard from "./assets/components/user/UserDashBoard.jsx";
-import ResetPassword from "./assets/components/auth/ResetPassword.js";
+import ResetPassword from "./assets/components/auth/ResetPassword.jsx";
 import PasswordResetRequest from "./assets/components/auth/PasswordResetRequest.jsx";
 import EmailVerification from "./assets/components/auth/EmailVerification.jsx";
 import UserUpdate from "./assets/components/user/UserUpdate.jsx";

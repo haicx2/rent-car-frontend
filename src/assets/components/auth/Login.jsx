@@ -1,13 +1,24 @@
 import {Button, Card, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {BsLockFill, BsPersonFill} from "react-icons/bs";
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import UseMessageAlerts from "../hook/UserMessageAlert.js";
+import {loginUser} from "./AuthService.js";
+import {jwtDecode} from "jwt-decode";
+import AlertMessage from "../common/AlertMessage.jsx";
 
 export default function Login() {
     const [credentials, setCredentials] = useState({
         email: "",
         password: "",
     });
+
+    const { errorMessage, setErrorMessage, showErrorAlert, setShowErrorAlert } =
+        UseMessageAlerts();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -16,14 +27,53 @@ export default function Login() {
             [name]: value,
         }));
     };
+
+    useEffect(() => {
+        const isAuthenticated = localStorage.getItem("authToken");
+        if (isAuthenticated) {
+            navigate(from, { replace: true });
+        }
+    });
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        if (!credentials.email || !credentials.password) {
+            setErrorMessage("Please, enter a valid username and password");
+            setShowErrorAlert(true);
+            return;
+        }
+        try {
+            const data = await loginUser(credentials.email, credentials.password);
+            localStorage.setItem("authToken", data.token);
+            const decoded = jwtDecode(data.token);
+            localStorage.setItem("userRoles", JSON.stringify(decoded.roles));
+            localStorage.setItem("userId", decoded.id);
+            clearLoginForm();
+            navigate(from, { replace: true });
+            window.location.reload;
+        } catch (error) {
+            setErrorMessage(error.response.data.data);
+            setShowErrorAlert(true);
+        }
+    };
+
+    const clearLoginForm = () => {
+        setCredentials({ email: "", password: "" });
+        setShowErrorAlert(false);
+    };
+
     return (
         <Container className='mt-5'>
             <Row className='justify-content-center'>
                 <Col sm={6}>
                     <Card>
+                        {showErrorAlert && (
+                            <AlertMessage type={"danger"} message={errorMessage} />
+                        )}
+
                         <Card.Body>
                             <Card.Title className='text-center mb-4'>Login</Card.Title>
-                            <Form>
+                            <Form onSubmit={handleLogin}>
                                 <Form.Group className='mb-3' controlId='username'>
                                     <Form.Label>Username</Form.Label>
                                     <InputGroup>
@@ -62,11 +112,21 @@ export default function Login() {
                             </Form>
                             <div className='text-center mt-2'>
                                 Don't have an account yet?{" "}
-                                <Link
-                                    to={"/register-user"}
-                                    style={{ textDecoration: "none" }}>
+                                <Link to={"/register-user"} style={{ textDecoration: "none" }}>
                                     Register here
                                 </Link>
+
+
+                                <div className='mt-2'>
+                                    <Link
+                                        to={"/password-rest-request"}
+                                        style={{ textDecoration: "none" }}>
+                                        Forgot Password?
+                                    </Link>
+                                </div>
+
+
+
                             </div>
                         </Card.Body>
                     </Card>
