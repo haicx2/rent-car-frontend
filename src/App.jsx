@@ -14,12 +14,14 @@ import ResetPassword from "./assets/components/auth/ResetPassword.jsx";
 import PasswordResetRequest from "./assets/components/auth/PasswordResetRequest.jsx";
 import EmailVerification from "./assets/components/auth/EmailVerification.jsx";
 import UserUpdate from "./assets/components/user/UserUpdate.jsx";
+import CarAdd from "./assets/components/car/CarAdd.jsx";
 
 function App() {
     const router = createBrowserRouter(createRoutesFromElements(
         <Route path="/" element={<RootLayout/>}>
          <Route index element={<Home/>}/>
             <Route path="/cars" element={<CarListing/>}/>
+            <Route path="/:userId/add-car" element={<CarAdd/>}/>
             <Route path="/bookingService/:carId" element={<Booking/>}/>
             <Route path="/car/carDetails/:carId" element={<Car/>}/>
             <Route path='/register-user' element={<UserRegistration/>} />

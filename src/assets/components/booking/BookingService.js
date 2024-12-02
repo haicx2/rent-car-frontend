@@ -58,7 +58,7 @@ export async function approveBooking(bookingId) {
 export async function declineBooking(bookingId){
     try {
         const response = await api.put(
-            `/booking/${appointmentId}/decline`
+            `/booking/${bookingId}/decline`
         );
         return response.data;
     } catch (error) {

@@ -31,7 +31,7 @@ export default function UserDashBoard() {
     } = UseMessageAlerts();
 
     // const { userId } = useParams();
-    const userId = 3;
+    const userId = localStorage.getItem("userId");
 
     useEffect(() => {
         const getUserById = async () => {

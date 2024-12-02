@@ -37,3 +37,13 @@ export async function updateCarPhoto(carId, file) {
     }
 }
 
+export async function addCar(ownerId, car) {
+    try {
+        const result = await api.post(`/car/add?ownerId=${ownerId}`, car);
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+
+}
+
