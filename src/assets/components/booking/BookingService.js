@@ -7,9 +7,14 @@ export async function bookingService(carId, customerId, bookingRequest) {
     }
 
     try {
+        const token = localStorage.getItem("authToken")
         const result = await api.post(
             `/booking/add?carId=${carId}&customerId=${customerId}`,
-            bookingRequest
+            bookingRequest, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
         );
         console.log("The result from bookingService:", result);
         return result.data; // Adjust to `return result` if more details are needed

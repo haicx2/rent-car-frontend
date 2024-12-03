@@ -23,7 +23,6 @@ export default function Rating({carId, onReviewSubmit}) {
 
     const customerId = localStorage.getItem("userId");
 
-    // const{veterinarianId} = useParams()
 
     const handleRatingChange = (value) => {
         setRating(value);

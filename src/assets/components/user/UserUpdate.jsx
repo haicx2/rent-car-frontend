@@ -2,7 +2,9 @@ import UseMessageAlerts from "../hook/UserMessageAlert.js";
 import {useEffect, useState} from "react";
 import {getUser, updateUser} from "./UserService.js";
 import {useNavigate, useParams} from "react-router-dom";
-import {Card, Col, Container, Form} from "react-bootstrap";
+import {Button, Card, Col, Container, Form} from "react-bootstrap";
+import AlertMessage from "../common/AlertMessage.jsx";
+import ProcessSpinner from "../common/ProcessSpinner.jsx";
 
 export default function UserUpdate() {
     const [isProcessing, setIsProcessing] = useState(false);
@@ -52,7 +54,7 @@ export default function UserUpdate() {
         e.preventDefault();
         const updatedUserData = {
             nationalId: userData.nationalId,
-            lastName: userData.name,
+            name: userData.name,
             phone: userData.phone,
             address: userData.address,
             drivingLicense: userData.drivingLicense,
@@ -76,129 +78,98 @@ export default function UserUpdate() {
     };
 
     return (
-        <Container md={6} className='d-flex justify-content-center mt-5'>
+        <Container className="d-flex justify-content-center mt-5">
             <Col md={6}>
-                <Form onSubmit={(e) => handleUserUpdate(e)}>
-                    <Card className='shadow mb-5'>
-                        <Card.Header className='text-center mb-2'>
+                <Form onSubmit={handleUserUpdate}>
+                    <Card className="shadow mb-5">
+                        <Card.Header className="text-center mb-2">
                             Update User Information
                         </Card.Header>
                         <Card.Body>
-                            <fieldset className='field-set'>
-                                <legend>Full Name</legend>
-                                <Form.Group
-                                    as={Col}
-                                    controlId='nameFields'
-                                    className='mb-2 d-flex'>
-                                    <Form.Control
-                                        type='text'
-                                        name='firstName'
-                                        value={userData.firstName}
-                                        onChange={handleUserInputChange}
-                                        style={{ marginRight: "10px" }}
-                                    />
-                                    <Form.Control
-                                        type='text'
-                                        name='lastName'
-                                        value={userData.lastName}
-                                        onChange={handleUserInputChange}
-                                    />
-                                </Form.Group>
-                            </fieldset>
-
-                            <Form.Group as={Col} controlId='gender' className='mb-2'>
-                                <Form.Label className='legend'>Gender</Form.Label>
+                            <Form.Group controlId="nationalId" className="mb-3">
+                                <Form.Label>National ID</Form.Label>
                                 <Form.Control
-                                    as='select'
-                                    name='gender'
-                                    value={userData.gender}
-                                    onChange={handleUserInputChange}>
-                                    <option value=''>Select Gender</option>
-                                    <option value='Male'>Male</option>
-                                    <option value='Female'>Female</option>
-                                    <option value='Others'>Others</option>
-                                </Form.Control>
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId='gender' className='mb-2'>
-                                <Form.Label className='legend'>User Type</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    name='userType'
-                                    value={userData.userType}
+                                    type="number"
+                                    name="nationalId"
+                                    value={userData.nationalId}
                                     onChange={handleUserInputChange}
-                                    disabled
                                 />
                             </Form.Group>
 
-                            <fieldset className='field-set mb-2 mt-2'>
-                                <legend>Contact Information</legend>
-                                <Form.Group
-                                    as={Col}
-                                    controlId='emailPhoneFields'
-                                    className='mb-2 d-flex'>
-                                    <Form.Control
-                                        type='email'
-                                        name='email'
-                                        value={userData.email}
-                                        onChange={handleUserInputChange}
-                                        style={{ marginRight: "10px" }}
-                                        disabled
-                                    />
-                                    <Form.Control
-                                        type='text'
-                                        name='phoneNumber'
-                                        placeholder='Mobile Contact'
-                                        value={userData.phoneNumber}
-                                        onChange={handleUserInputChange}
-                                    />
-                                </Form.Group>
-                            </fieldset>
+                            <Form.Group controlId="name" className="mb-3">
+                                <Form.Label>Full Name</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    value={userData.name}
+                                    onChange={handleUserInputChange}
+                                />
+                            </Form.Group>
 
-                            {userData.userType === "VET" && (
-                                <Form.Group controlId='specialization' className='mb-4'>
-                                    <Form.Label className='legend'>Specialization</Form.Label>
-                                    <VetSpecializationSelector
-                                        handleAddSpecialization={handleUserInputChange}
-                                        userData={userData}
-                                        setUserData={setUserData}
-                                    />
-                                </Form.Group>
-                            )}
+                            <Form.Group controlId="phone" className="mb-3">
+                                <Form.Label>Phone</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="phone"
+                                    value={userData.phone}
+                                    onChange={handleUserInputChange}
+                                />
+                            </Form.Group>
+
+                            <Form.Group controlId="address" className="mb-3">
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="address"
+                                    value={userData.address}
+                                    onChange={handleUserInputChange}
+                                />
+                            </Form.Group>
+
+                            <Form.Group controlId="drivingLicense" className="mb-3">
+                                <Form.Label>Driving License</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="drivingLicense"
+                                    value={userData.drivingLicense}
+                                    onChange={handleUserInputChange}
+                                />
+                            </Form.Group>
+
                             {showErrorAlert && (
-                                <AlertMessage type='danger' message={errorMessage} />
+                                <AlertMessage type="danger" message={errorMessage} />
                             )}
                             {showSuccessAlert && (
-                                <AlertMessage type='success' message={successMessage} />
+                                <AlertMessage type="success" message={successMessage} />
                             )}
 
-                            <div className='d-flex justify-content-center'>
-                                <div className='mx-2'>
-                                    <Button
-                                        type='submit'
-                                        variant='outline-warning'
-                                        size='sm'
-                                        disabled={isProcessing}>
-                                        {isProcessing ? (
-                                            <ProcessSpinner message='Processing update...' />
-                                        ) : (
-                                            "Update"
-                                        )}
-                                    </Button>
-                                </div>
-                                <div className='mx-2'>
-                                    <Button
-                                        variant='outline-info'
-                                        size='sm'
-                                        onClick={handleCancelEdit}>
-                                        Back to profile
-                                    </Button>
-                                </div>
+                            <div className="d-flex justify-content-center">
+                                <Button
+                                    type="submit"
+                                    variant="outline-warning"
+                                    size="sm"
+                                    disabled={isProcessing}
+                                    className="mx-2"
+                                >
+                                    {isProcessing ? (
+                                        <ProcessSpinner message="Processing update..." />
+                                    ) : (
+                                        "Update"
+                                    )}
+                                </Button>
+                                <Button
+                                    variant="outline-info"
+                                    size="sm"
+                                    onClick={handleCancelEdit}
+                                    className="mx-2"
+                                >
+                                    Back to profile
+                                </Button>
                             </div>
                         </Card.Body>
                     </Card>
                 </Form>
             </Col>
         </Container>
-    )
+    );
 }
