@@ -1,7 +1,7 @@
 import {Card} from "react-bootstrap";
 import placeholder from "../../images/placeholder.webp";
 
-export default function CarImage({userId, carImage, altText = "Car Image"}) {
+export default function CarImage({carImage, altText = "Car Image"}) {
     return (
         <>
             {carImage ? (

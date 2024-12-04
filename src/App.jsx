@@ -8,13 +8,13 @@ import Booking from "./assets/components/booking/Booking.jsx";
 import Car from "./assets/components/car/Car.jsx";
 import UserRegistration from "./assets/components/user/UserRegistration.jsx";
 import Login from "./assets/components/auth/Login.jsx";
-import CarUploadImage from "./assets/components/car/CarUploadImage.jsx";
 import UserDashBoard from "./assets/components/user/UserDashBoard.jsx";
 import ResetPassword from "./assets/components/auth/ResetPassword.jsx";
 import PasswordResetRequest from "./assets/components/auth/PasswordResetRequest.jsx";
 import EmailVerification from "./assets/components/auth/EmailVerification.jsx";
 import UserUpdate from "./assets/components/user/UserUpdate.jsx";
 import CarAdd from "./assets/components/car/CarAdd.jsx";
+import CarEdit from "./assets/components/car/CarEdit.jsx";
 
 function App() {
     const router = createBrowserRouter(createRoutesFromElements(
@@ -26,7 +26,7 @@ function App() {
             <Route path="/car/carDetails/:carId" element={<Car/>}/>
             <Route path='/register-user' element={<UserRegistration/>} />
             <Route path='/login' element={<Login />} />
-            <Route path='/car/upload-image/:carId' element={<CarUploadImage/>} />
+            <Route path='/car/edit-car/:carId' element={<CarEdit/>} />
             <Route path='/user-dashboard/:userId/my-dashboard' element={<UserDashBoard/>} />
             <Route
                 path='/password-rest-request'

@@ -48,6 +48,7 @@ export default function Login() {
             const decoded = jwtDecode(data.token);
             localStorage.setItem("userRoles", JSON.stringify(decoded.roles));
             localStorage.setItem("userId", decoded.id);
+            localStorage.setItem("email", decoded.sub);
             clearLoginForm();
             navigate(from, { replace: true });
             window.location.reload;

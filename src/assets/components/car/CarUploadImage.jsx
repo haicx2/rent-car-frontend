@@ -1,14 +1,13 @@
-import { Button, Container, Form, InputGroup } from "react-bootstrap";
+import {Button, Container, Form, InputGroup, Modal} from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage.jsx";
 import UseMessageAlerts from "../hook/UserMessageAlert.js";
-import { useEffect, useState } from "react";
-import { getCarById, updateCarPhoto } from "./CarService.js";
-import { useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getCarById, updateCarPhoto} from "./CarService.js";
+import {useParams} from "react-router-dom";
 
-export default function CarUploadImage() {
+export default function CarUploadImage({carId, show, handleClose}) {
     const [file, setFile] = useState(null);
     const [car, setCar] = useState(null);
-    const { carId } = useParams();
 
     const {
         successMessage,
@@ -21,7 +20,6 @@ export default function CarUploadImage() {
         setShowErrorAlert,
     } = UseMessageAlerts();
 
-    // Handle file selection
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile && selectedFile.type.startsWith("image/")) {
@@ -33,7 +31,6 @@ export default function CarUploadImage() {
         }
     };
 
-    // Fetch car details
     const getCar = async () => {
         try {
             const result = await getCarById(carId);
@@ -83,25 +80,29 @@ export default function CarUploadImage() {
     }, [showSuccessAlert, showErrorAlert]);
 
     return (
-        <Container>
-            {/* Alert Messages */}
-            {showErrorAlert && <AlertMessage type="danger" message={errorMessage} />}
-            {showSuccessAlert && <AlertMessage type="success" message={successMessage} />}
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Upload a Photo</Modal.Title>
+            </Modal.Header>
 
-            <Form onSubmit={handleImageUpload}>
-                <h6>Select the photo you would like to display on your profile</h6>
-                <InputGroup>
-                    <Form.Control
-                        type="file"
-                        onChange={handleFileChange}
-                        accept="image/*"
-                    />
-                    <Button variant="secondary" type="submit">
-                        Upload
-                    </Button>
-                </InputGroup>
-            </Form>
+            <Modal.Body>
+                {showErrorAlert && (
+                    <AlertMessage type={"danger"} messsag={errorMessage}/>
+                )}
+                {showSuccessAlert && (
+                    <AlertMessage type={"success"} messsag={successMessage}/>
+                )}
 
-        </Container>
+                <Form>
+                    <h6>Select the photo you would like to display on your profile</h6>
+                    <InputGroup>
+                        <Form.Control type='file' onChange={handleFileChange}/>
+                        <Button variant='secondary' onClick={handleImageUpload}>
+                            Upload
+                        </Button>
+                    </InputGroup>
+                </Form>
+            </Modal.Body>
+        </Modal>
     );
 }

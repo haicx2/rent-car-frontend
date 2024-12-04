@@ -47,3 +47,12 @@ export async function addCar(ownerId, car) {
 
 }
 
+export async function editCar(carId, car) {
+    try {
+        const result = await api.put(`/car/update/${carId}`, car)
+        return result.data
+    } catch (error) {
+        throw error;
+    }
+}
+

@@ -17,6 +17,7 @@ export default function Car() {
     const {carId} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const [reviewPerPage, setReviewPerPage] = useState(2);
+    const owner = localStorage.getItem("email")
 
     const {errorMessage, showErrorAlert, setErrorMessage, setShowErrorAlert} =
         UseMessageAlerts();
@@ -87,7 +88,9 @@ export default function Car() {
                                 {car.totalCustomers === 1 ? "person" : "people"}){" "}
                             </Card.Text>
                         )}
-                        <Link to={`/car/upload-image/${car.id}`}>Change car image</Link>
+                        {car.ownerEmail === owner && (
+                            <Link to={`/car/edit-car/${car.id}`}>Edit Car</Link>
+                        )}
                         <Link
                             to={`/bookCar/${car.id}`}
                             className='link'>
@@ -99,12 +102,7 @@ export default function Car() {
                             About This {car.name}{" "}
                         </p>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-                            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-                            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-                            fugiat iusto fuga praesentium optio, eaque rerum! Provident
-                            similique accusantium nemo autem. Veritatis obcaecati tenetur iure
-                            corporis!
+                            {car.description}
                         </p>
                         <hr/>
                         <Rating carId={car.id} onReviewSubmit={null}/>
